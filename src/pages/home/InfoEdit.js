@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, TouchableHighlight} from 'react-native'
+import {View, Text, TouchableHighlight, ToastAndroid} from 'react-native'
 import {Icon} from 'react-native-elements'
 import ItemInput from '../../common/ItemInput'
 
@@ -25,8 +25,10 @@ export default class InfoEdit extends React.Component {
         onPress={() => {
           navigation.goBack()
         }}/>,
-      headerRight: <TouchableHighlight style={{paddingRight: 10}}>
-        <Text>保存</Text>
+      headerRight: <TouchableHighlight style={{paddingRight: 10, alignItems: 'center', flex: 1, justifyContent: 'center'}} onPress={ () => {
+        ToastAndroid.show('保存信息成功', ToastAndroid.SHORT)
+      }}>
+        <Text style={{ flex: 1, textAlign: 'center'}}>保存</Text>
       </TouchableHighlight>
     }
   }

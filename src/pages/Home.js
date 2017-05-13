@@ -14,6 +14,7 @@ import {
 } from 'react-native-elements'
 
 import {StackNavigator} from 'react-navigation'
+import Config from 'react-native-config'
 
 import Info from './home/Info'
 import InfoEdit from './home/InfoEdit'
@@ -70,6 +71,14 @@ class Home extends React.Component {
         },
       ]
     }
+  }
+
+  componentWillMount() {
+    fetch(`${Config.API_HOST}/`)
+      .then(res => res.json())
+      .then(res => {
+        console.log('[response]', res)
+      })
   }
 
 

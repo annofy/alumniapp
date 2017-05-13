@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, Image, ScrollView, StyleSheet, Dimensions} from 'react-native'
+import {View, Text, Image, ScrollView, StyleSheet, Dimensions, Share} from 'react-native'
 import {Icon, Divider, Badge} from 'react-native-elements'
 
 export default class TopicDetail extends React.Component {
@@ -34,6 +34,7 @@ export default class TopicDetail extends React.Component {
       shareCount: 0
     }
     this.onPress = this.onPress.bind(this)
+    this._shareText = this._shareText.bind(this)
   }
 
   onPress() {
@@ -42,6 +43,14 @@ export default class TopicDetail extends React.Component {
       clickHeartCount: this.state.clickHeartCount + 1
     })
   }
+
+  _shareText() {
+    Share.share({
+      message: 'A framework for building native apps using React',
+      title: 'React Native'
+    }).then(this._showResult).catch((error) => this.setState({result: 'error: ' + error.message}));
+  }
+
 
   render() {
     return (
@@ -107,6 +116,7 @@ export default class TopicDetail extends React.Component {
                   this.setState({
                     shareCount: this.state.shareCount + 1
                   })
+                  this._shareText()
                 }}
               /><Text>({this.state.shareCount})</Text>
             </View>

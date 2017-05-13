@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "log": "adb logcat|grep 'response'"
   },
   "dependencies": {
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.4",
     "react-native-baidu-map": "^0.6.0",
     "react-native-bdmap": "^1.0.9",
+    "react-native-config": "^0.4.2",
     "react-native-elements": "^0.11.2",
     "react-native-swiper": "^1.5.4",
     "react-native-tab-navigator": "^0.3.3",

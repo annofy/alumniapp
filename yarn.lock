@@ -2945,6 +2945,10 @@ react-native-bdmap@^1.0.9:
   dependencies:
     fbemitter "^2.1.1"
 
+react-native-config@^0.4.2:
+  version "0.4.2"
+  resolved "http://registry.npm.taobao.org/react-native-config/download/react-native-config-0.4.2.tgz#42ee30835c6aa293a91f4487c85a3e9f15204f56"
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/react-native-dismiss-keyboard/download/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
