@@ -4,7 +4,8 @@ import {
   View,
   Text,
   Image,
-  ScrollView
+  ScrollView,
+  ToastAndroid
 } from 'react-native'
 
 import {
@@ -23,6 +24,7 @@ import PhoneBind from './home/PhoneBind'
 import PushSetting from './home/PushSetting'
 import MyDonate from './home/MyDonate'
 import About from './home/About'
+import SetEmail from './home/SetEmail'
 
 import ImageIcon from '../../images/icons8-puzzle.png'
 
@@ -34,6 +36,7 @@ class Home extends React.Component {
   static navigationOptions = {
     headerStyle: {height: 0, overflow: 'hidden'}
   }
+
 
   constructor(props) {
     super(props)
@@ -55,6 +58,11 @@ class Home extends React.Component {
           component: 'PhoneBind'
         },
         {
+          name: '邮箱绑定',
+          icon: 'envelope-o',
+          component: 'SetEmail'
+        },
+        {
           name: '消息推送',
           icon: 'bell-o',
           component: 'PushSetting'
@@ -69,15 +77,23 @@ class Home extends React.Component {
           icon: 'comment-o',
           component: 'About'
         },
-      ]
+      ],
+      info: {}
     }
   }
 
   componentWillMount() {
-    fetch(`${Config.API_HOST}/`)
+    console.log(Config)
+    fetch(`${Config.API_URL}/home`)
       .then(res => res.json())
       .then(res => {
-        console.log('[response]', res)
+        if (res.success) {
+          this.setState({
+            info: res.data
+          })
+        } else {
+          ToastAndroid.show('网络错误', ToastAndroid.SHORT)
+        }
       })
   }
 
@@ -92,13 +108,13 @@ class Home extends React.Component {
           </View>
           <View style={{flex: 3, flexDirection: 'column', justifyContent: 'center'}}>
             <View style={styles.headerItem}>
-              <Text>zhenglongfan</Text>
+              <Text>{this.state.info.name}</Text>
             </View>
             <View style={styles.headerItem}>
-              <Text>浙江 杭州</Text>
+              <Text>{this.state.info.locationProvince + ' ' + this.state.info.locationCity}</Text>
             </View>
             <View style={styles.headerItem}>
-              <Text>杭州青峰网络</Text>
+              <Text>{this.state.info.company}</Text>
             </View>
           </View>
         </Row>
@@ -114,7 +130,7 @@ class Home extends React.Component {
                     title={l.name}
                     onPress={ () => {
                       this.props.screenProps.hiddenBar()
-                      return navigate(l.component)
+                      return navigate(l.component, {id: this.state.info._id})
                     }}
                   />
                 ))
@@ -153,10 +169,11 @@ export default StackNavigator({
   Info: {
     screen: Info,
   },
-  InfoEdit: { screen: InfoEdit },
-  PassSetting: { screen: PassSetting },
-  PhoneBind: { screen: PhoneBind },
-  PushSetting: { screen: PushSetting },
-  MyDonate: { screen: MyDonate },
-  About: { screen: About },
+  InfoEdit: {screen: InfoEdit},
+  PassSetting: {screen: PassSetting},
+  PhoneBind: {screen: PhoneBind},
+  PushSetting: {screen: PushSetting},
+  MyDonate: {screen: MyDonate},
+  About: {screen: About},
+  SetEmail: { screen: SetEmail }
 })

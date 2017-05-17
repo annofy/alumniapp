@@ -13,6 +13,7 @@ import { NavigationActions } from 'react-navigation'
 
 import ListInfo from '../../common/ListInfo'
 import ItemInfo from '../../common/ItemInfo'
+import Config from 'react-native-config'
 
 export default class Info extends React.Component {
 
@@ -58,22 +59,21 @@ export default class Info extends React.Component {
 
 
   componentWillMount() {
-    this.setState({
-      info: {
-        name: 'zhenglongfan',
-        phone: '18372627060',
-        company: '青峰网络',
-        location: '浙江杭州',
-        industry: 'web前端开发',
-        graduation: '13级计算机系'
-      }
-    }, () => {
-      _actions = NavigationActions.navigate({
-        routeName: 'InfoEdit',
-        params: { ...this.state.info},
+    fetch(`${Config.API_URL}/home/info/${this.props.navigation.state.params.id}`)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+        if(res.success) {
+          this.setState({
+            info: res.data
+          }, () => {
+            _actions = NavigationActions.navigate({
+              routeName: 'InfoEdit',
+              params: { ...this.state.info},
+            })
+          })
+        }
       })
-    })
-
   }
 
   render() {
@@ -81,10 +81,10 @@ export default class Info extends React.Component {
       <ListInfo>
         <ItemInfo title="姓名" rightTitle={this.state.info.name}/>
         <ItemInfo title="手机号" rightTitle={this.state.info.phone}/>
-        <ItemInfo title="公司" rightTitle={this.state.info.company}/>
-        <ItemInfo title="位置" rightTitle={this.state.info.location}/>
+        <ItemInfo title="所在省" rightTitle={this.state.info.locationProvince}/>
+        <ItemInfo title="所在市" rightTitle={this.state.info.locationCity}/>
         <ItemInfo title="行业" rightTitle={this.state.info.industry}/>
-        <ItemInfo title="学历信息" rightTitle={this.state.info.graduation}/>
+        <ItemInfo title="学历信息" rightTitle={this.state.info.graduation.desc}/>
       </ListInfo>
     )
   }

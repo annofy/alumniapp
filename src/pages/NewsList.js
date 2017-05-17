@@ -1,19 +1,16 @@
 import React from 'react'
 import {
-  Text, View, ScrollView, StyleSheet, ViewPagerAndroid, Image
+  Text, View, ScrollView, StyleSheet, ViewPagerAndroid, Image,ToastAndroid
 } from 'react-native'
-
 import {Grid, Row, ListItem} from 'react-native-elements'
-
 import {StackNavigator} from 'react-navigation'
 import Swiper from 'react-native-swiper'
-
 import Container from '../common/Container'
 import ListInfo from '../common/ListInfo'
 import Info from "./home/Info";
 import ItemInfo from "../common/ItemInfo";
-
 import NewsInfo from './newlist/NewsInfo'
+import Config from 'react-native-config'
 
 class NewsList extends React.Component {
 
@@ -25,27 +22,25 @@ class NewsList extends React.Component {
     super(props)
     this.state = {
       newsList: [
-        {newsId: '1', title: '湖北汽车工业学院破格提升211院校', desc: '经过教育部深度研究，汽车学院在近年各方面取得显著成绩。'},
-        {newsId: '2', title: '知名校友xxx捐款组建校青年奖学金', desc: '经过教育部深度研究，汽车学院在近年各方面取得显著成绩。'},
-        {newsId: '3', title: '18级ddd在ACM大赛中勇得冠军得到奖金10w', desc: '经过教育部深度研究，汽车学院在近年各方面取得显著成绩。'},
-        {newsId: '4', title: '十堰四所高校合并以汽院专业为基础扩建', desc: '经过教育部深度研究，汽车学院在近年各方面取得显著成绩。'},
-        {newsId: '5', title: '我校得到教育部资金10亿用来建设学校', desc: '经过教育部深度研究，汽车学院在近年各方面取得显著成绩。'},
-        {newsId: '6', title: '我校得到教育部资金10亿用来建设学校', desc: '经过教育部深度研究，汽车学院在近年各方面取得显著成绩。'},
-        {newsId: '7', title: '我校得到教育部资金10亿用来建设学校', desc: '经过教育部深度研究，汽车学院在近年各方面取得显著成绩。'},
-        {newsId: '8', title: '我校得到教育部资金10亿用来建设学校', desc: '经过教育部深度研究，汽车学院在近年各方面取得显著成绩。'},
-        {newsId: '9', title: '我校得到教育部资金10亿用来建设学校', desc: '经过教育部深度研究，汽车学院在近年各方面取得显著成绩。'},
       ],
       pageIndex: 0
     }
 
-    this.setPage = this.setPage.bind(this)
   }
 
-  setPage() {
-    return this.state.pageIndex
-  }
-
-  pageSelect(position) {
+  componentWillMount() {
+    fetch(Config.API_URL + '/newslist')
+      .then(res => res.json())
+      .then(res => {
+        if(res.success) {
+          ToastAndroid.show(`成功拉取到${res.data.count}条校园新闻`, ToastAndroid.SHORT)
+          this.setState({
+            newsList: res.data.newsList
+          })
+        } else {
+          ToastAndroid.show(`拉取新闻失败${res.reason}`, ToastAndroid.SHORT)
+        }
+      })
   }
 
   render() {
@@ -75,16 +70,16 @@ class NewsList extends React.Component {
                     return (
                       <ListItem onPress={() => {
                         this.props.screenProps.hiddenBar()
-                        return navigate('NewsInfo', {id: cv.newsId, title: cv.title})
+                        return navigate('NewsInfo', {id: cv._id, title: cv.title, hash: cv.hash})
                       }} hideChevron={true} leftIcon={{name: 'fire', color: '#ED602B', type: 'font-awesome'}}
-                                title={cv.title} key={cv.newsId} subtitle={cv.desc}/>
+                                title={cv.title} key={cv._id} subtitle={cv.desc}/>
                     )
                   } else {
                     return (
                       <ListItem onPress={() => {
                         this.props.screenProps.hiddenBar()
-                        return navigate('NewsInfo', {id: cv.newsId, title: cv.title})
-                      }} hideChevron={true} title={cv.title} key={cv.newsId} subtitle={cv.desc}/>
+                        return navigate('NewsInfo', {id: cv._id, title: cv.title, hash: cv.hash})
+                      }} hideChevron={true} title={cv.title} key={cv._id} subtitle={cv.desc}/>
                     )
                   }
                 })

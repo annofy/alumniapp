@@ -1,14 +1,6 @@
 import React from 'react'
-import {
-  View,
-  Text
-} from 'react-native'
-
-import {
-  Card,
-  Button,
-  Icon
-} from 'react-native-elements'
+import {View, Text} from 'react-native'
+import {Card, Button, Icon} from 'react-native-elements'
 
 export default class UserInfo extends React.Component {
 
@@ -32,7 +24,7 @@ export default class UserInfo extends React.Component {
         onPress={() => {
           screenProps.showBar()
           navigation.goBack()
-        }} />
+        }}/>
     })
   }
 
@@ -41,7 +33,8 @@ export default class UserInfo extends React.Component {
   }
 
   render() {
-    const { params } = this.props.navigation.state
+    const {state, navigate} = this.props.navigation,
+      params = state.params;
     return (
       <Card
         title={ params.name }
@@ -56,6 +49,9 @@ export default class UserInfo extends React.Component {
           icon={{name: 'email'}}
           backgroundColor='#03A9F4'
           fontFamily='Lato'
+          onPress={() => {
+            navigate('SendMail', { })
+          }}
           buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginTop: 10, marginBottom: 0}}
           title='给他发邮件'/>
         <Button

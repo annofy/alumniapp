@@ -47,7 +47,7 @@ export default class App extends React.Component {
         <StatusBar
           barStyle='dark-content'
           translucent={false}
-          backgroundColor='#F8F8F8'
+          backgroundColor='transparent'
           style={{height: 20, marginBottom: 20}}
         />
         <Navigator

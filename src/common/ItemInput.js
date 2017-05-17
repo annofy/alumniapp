@@ -1,12 +1,11 @@
 import React from 'react'
 import {View, StyleSheet, TextInput, Text} from 'react-native'
 
-export default class ItemInput extends React.Component {
+export class ItemInput extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-    }
+    this.state = {}
   }
 
   render() {
@@ -19,6 +18,24 @@ export default class ItemInput extends React.Component {
     )
   }
 }
+
+export class ItemTextArea extends React.Component {
+
+  constructor(props){
+    super(props)
+  }
+
+  render() {
+    return (
+      <View style={styles.abox}>
+        <Text style={styles.label}>{this.props.label}</Text>
+        <TextInput style={styles.area} underlineColorAndroid="transparent" multiline defaultValue={this.props.value}
+                   onChangeText={this.props.onChangeText}/>
+      </View>
+    )
+  }
+}
+
 
 ItemInput.defaultProps = {
   label: '标签',
@@ -48,5 +65,16 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingRight: 10,
     borderBottomWidth: 0
+  },
+  abox: {
+    height: 50
+  },
+  area: {
+    flex: 7,
+    textAlign: 'left',
+    padding: 0,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderBottomWidth: 0,
   }
 })

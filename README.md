@@ -2,21 +2,27 @@
 
 [TOC]
 
-## 0.绪论
+0.绪论
 
-### a. 设计想法
+---
+
+a. 设计想法
     就为了改变学校校友资源严重浪费的场景
+    
+---
 
-## 1. npm模块说明
-
-
-## 2. 设计原理
-
-
-## 3. 效果查看
+1. npm模块说明
 
 
-## 4 官方需要注意权限记录
+2. 设计原理
+
+---
+
+3. 效果查看
+
+---
+
+4 官方需要注意权限记录
 
 ```
 READ_CALENDAR: 'android.permission.READ_CALENDAR',
@@ -45,3 +51,8 @@ READ_EXTERNAL_STORAGE: 'android.permission.READ_EXTERNAL_STORAGE',
 WRITE_EXTERNAL_STORAGE: 'android.permission.WRITE_EXTERNAL_STORAGE',
 
 ```
+
+4. 发布说明
+
+5.
+    
