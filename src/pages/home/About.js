@@ -9,6 +9,7 @@ import {
   Button,
   Icon
 } from 'react-native-elements'
+import LeftBtn from '../../common/LeftBtn'
 
 
 export default class About extends React.Component {
@@ -25,16 +26,7 @@ export default class About extends React.Component {
         fontSize: 16,
         fontWeight: 'normal'
       },
-      headerLeft: <Icon
-        name='chevron-left'
-        type='ionicons'
-        color='#333'
-        underlayColor="#ccc"
-        containerStyle={{flex: 1, paddingRight: 10}}
-        onPress={() => {
-          screenProps.showBar()
-          navigation.goBack()
-        }}/>
+      headerLeft: <LeftBtn navigation={navigation} screenProps={screenProps}/>
     }
   }
 

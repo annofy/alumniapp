@@ -67,14 +67,17 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0
   },
   abox: {
-    height: 50
+    height: 150,
+    flexDirection: 'row',
+    marginLeft: 5,
+    marginRight: 5,
+    paddingTop: 4,
+    paddingBottom: 4
   },
   area: {
     flex: 7,
     textAlign: 'left',
-    padding: 0,
-    paddingLeft: 10,
-    paddingRight: 10,
     borderBottomWidth: 0,
+    textAlignVertical: 'top'
   }
 })

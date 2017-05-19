@@ -23,7 +23,6 @@ export default class SendMail extends React.Component {
         underlayColor="#ccc"
         containerStyle={{flex: 1, paddingRight: 10}}
         onPress={() => {
-          screenProps.showBar()
           navigation.goBack()
         }}/>,
       headerRight: <TouchableHighlight>
@@ -41,9 +40,9 @@ export default class SendMail extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{backgroundColor: '#fff', flex: 1, marginTop: 4}}>
         <ItemInput label="邮箱" value="zhenglfsir@gmail.com"/>
-        <ItemTextArea label="内容" value="" />
+        <ItemTextArea label="内容" value=""/>
       </View>
     )
   }

@@ -2,6 +2,10 @@ import React from 'react'
 import {View, Text, TouchableHighlight, ToastAndroid} from 'react-native'
 import {Icon} from 'react-native-elements'
 import {ItemInput} from '../../common/ItemInput'
+import Config from 'react-native-config'
+import Tips from '../../common/Tips'
+import RightBtn from '../../common/RightBtn'
+import LeftBtn from '../../common/LeftBtn'
 
 export default class InfoEdit extends React.Component {
 
@@ -16,20 +20,23 @@ export default class InfoEdit extends React.Component {
         fontSize: 16,
         fontWeight: 'normal'
       },
-      headerLeft: <Icon
-        name='chevron-left'
-        type='ionicons'
-        color='#333'
-        underlayColor="#ccc"
-        containerStyle={{flex: 1, paddingRight: 10}}
-        onPress={() => {
+      headerLeft: <LeftBtn navigation={navigation}/>,
+      headerRight: <RightBtn label="保存" onPress={ () => {
+        fetch(`${Config.API_URL}/home/info`, {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            ...navigation.state.params
+          })
+        }).then(res => {
+          ToastAndroid.show('保存信息成功', ToastAndroid.SHORT)
           navigation.goBack()
-        }}/>,
-      headerRight: <TouchableHighlight underlayColor="transparent" style={{paddingRight: 10}} onPress={ () => {
-        ToastAndroid.show('保存信息成功', ToastAndroid.SHORT)
-      }}>
-        <Text>保存</Text>
-      </TouchableHighlight>
+        }).catch(err => {
+          ToastAndroid.show('保存信息失败', ToastAndroid.SHORT)
+        })
+      }}/>
     }
   }
 
@@ -41,7 +48,6 @@ export default class InfoEdit extends React.Component {
       locationProvince: props.navigation.state.params.locationProvince,
       locationCity: props.navigation.state.params.locationCity,
       industry: props.navigation.state.params.industry,
-      graduation: props.navigation.state.params.graduation
     }
   }
 
@@ -49,12 +55,13 @@ export default class InfoEdit extends React.Component {
     const {setParams} = this.props.navigation
     return (
       <View style={{backgroundColor: '#fff', marginTop: 4}}>
-        <ItemInput label="姓名" value={this.state.name} onChangeText={text => this.setState({name: text})}/>
-        <ItemInput label="手机号" value={this.state.phone} onChangeText={text => this.setState({phone: text})}/>
-        <ItemInput label="所在省" value={this.state.locationProvince} onChangeText={text => this.setState({locationProvince: text})}/>
-        <ItemInput label="所在市" value={this.state.locationCity} onChangeText={text => this.setState({locationCity: text})}/>
-        <ItemInput label="行业" value={this.state.industry} onChangeText={text => this.setState({industry: text})}/>
-        <ItemInput label="学历信息" value={this.state.graduation} onChangeText={text => this.setState({graduation: text})}/>
+        <Tips tips="地址示例: 省份: 浙江 市: 杭州"/>
+        <ItemInput label="姓名" value={this.state.name} onChangeText={text => setParams({name: text})}/>
+        <ItemInput label="手机号" value={this.state.phone} onChangeText={text => setParams({phone: text})}/>
+        <ItemInput label="所在省" value={this.state.locationProvince}
+                   onChangeText={text => setParams({locationProvince: text})}/>
+        <ItemInput label="所在市" value={this.state.locationCity} onChangeText={text => setParams({locationCity: text})}/>
+        <ItemInput label="行业" value={this.state.industry} onChangeText={text => setParams({industry: text})}/>
       </View>
     )
   }

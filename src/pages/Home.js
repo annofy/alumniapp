@@ -25,6 +25,7 @@ import PushSetting from './home/PushSetting'
 import MyDonate from './home/MyDonate'
 import About from './home/About'
 import SetEmail from './home/SetEmail'
+import SysMessage from './home/SysMessage'
 
 import ImageIcon from '../../images/icons8-puzzle.png'
 
@@ -73,6 +74,11 @@ class Home extends React.Component {
           component: 'MyDonate'
         },
         {
+          name: '消息通知',
+          icon: 'commenting-o',
+          component: 'SysMessage'
+        },
+        {
           name: '关于',
           icon: 'comment-o',
           component: 'About'
@@ -83,7 +89,6 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
-    console.log(Config)
     fetch(`${Config.API_URL}/home`)
       .then(res => res.json())
       .then(res => {
@@ -175,5 +180,6 @@ export default StackNavigator({
   PushSetting: {screen: PushSetting},
   MyDonate: {screen: MyDonate},
   About: {screen: About},
-  SetEmail: { screen: SetEmail }
+  SetEmail: {screen: SetEmail},
+  SysMessage: {screen: SysMessage},
 })

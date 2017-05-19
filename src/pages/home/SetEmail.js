@@ -3,6 +3,7 @@ import {View, Text, ScrollView, ToastAndroid, TouchableHighlight} from 'react-na
 import {Icon} from 'react-native-elements'
 import {ItemInput} from '../../common/ItemInput'
 import Config from 'react-native-config'
+import Tips from '../../common/Tips'
 
 export default class SetEmail extends React.Component {
 
@@ -77,8 +78,7 @@ export default class SetEmail extends React.Component {
     const {setParams} = this.props.navigation
     return (
       <View style={{flex: 1, backgroundColor: '#fff', marginTop: 10}}>
-        <Text
-          style={{color: '#ccc', fontSize: 12, paddingLeft: 10, marginTop: 10, marginBottom: 10}}>设置邮箱方便本站发送邮件信息</Text>
+        <Tips tips="设置邮箱方便本站发送邮件信息"/>
         <ScrollView>
           <ItemInput label="邮箱地址" value={this.state.email}
                      onChangeText={text => setParams({email: text}) }/>

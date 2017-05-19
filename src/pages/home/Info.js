@@ -53,7 +53,9 @@ export default class Info extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      info: {}
+      info: {
+        graduation: ''
+      }
     }
   }
 
@@ -62,11 +64,11 @@ export default class Info extends React.Component {
     fetch(`${Config.API_URL}/home/info/${this.props.navigation.state.params.id}`)
       .then(res => res.json())
       .then(res => {
-        console.log(res)
         if(res.success) {
           this.setState({
             info: res.data
           }, () => {
+            console.log('state', this.state.info)
             _actions = NavigationActions.navigate({
               routeName: 'InfoEdit',
               params: { ...this.state.info},

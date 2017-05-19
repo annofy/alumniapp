@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, Text, Image, ScrollView, StyleSheet, Dimensions, Share} from 'react-native'
 import {Icon, Divider, Badge} from 'react-native-elements'
+import Comments from '../../common/Comments'
 
 export default class TopicDetail extends React.Component {
 
@@ -121,6 +122,7 @@ export default class TopicDetail extends React.Component {
               /><Text>({this.state.shareCount})</Text>
             </View>
           </View>
+          <Comments/>
         </ScrollView>
       </View>
     )
