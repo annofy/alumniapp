@@ -50,7 +50,7 @@ export default class UserInfo extends React.Component {
           backgroundColor='#03A9F4'
           fontFamily='Lato'
           onPress={() => {
-            navigate('SendMail', { })
+            navigate('SendMail', { address: params.email })
           }}
           buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginTop: 10, marginBottom: 0}}
           title='给他发邮件'/>

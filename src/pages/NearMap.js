@@ -156,7 +156,7 @@ class NearMap extends React.Component {
                 this.state.nearUserList.map((cv, i) => (
                   <ItemInfo key={i} title={cv.name } onPress={() => {
                     this.props.screenProps.hiddenBar()
-                    return navigate('UserInfo', {name: cv.name, lastLogin: cv.lastLogin})
+                    return navigate('UserInfo', {name: cv.name, lastLogin: cv.lastLogin, email: cv.email})
                   }} rightTitle={cv.lastLogin}/>
                 ))
               }

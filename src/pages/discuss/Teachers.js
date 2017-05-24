@@ -4,7 +4,7 @@ import {
   View,
   Text,
   ScrollView,
-  TouchableHighlight
+  TouchableHighlight, ToastAndroid
 } from 'react-native'
 import {
   SearchBar,
@@ -12,11 +12,12 @@ import {
   Row,
   Icon
 } from 'react-native-elements'
+import Config from 'react-native-config'
 
 import ListInfo from '../../common/ListInfo'
 import ItemInfo from '../../common/ItemInfo'
 
-export default class TopicList extends React.Component {
+export default class Teachers extends React.Component {
   /*
    { navigation:
    05-11 23:20:51.668  4025  7060 I ReactNativeJS:    { dispatch: [Function],
@@ -33,7 +34,7 @@ export default class TopicList extends React.Component {
    */
   static navigationOptions({navigation, screenProps}) {
     return ({
-      title: '交流模块',
+      title: '我的老师',
       headerStyle: {
         height: 45
       },
@@ -51,57 +52,86 @@ export default class TopicList extends React.Component {
         onPress={() => {
           screenProps.showBar()
           navigation.goBack()
-        }} />
+        }}/>
     })
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      newsList: [
-        { id: 1, title: '腾讯学长带人有意向投简历发邮箱', desc: '学长带你进名气'},
-        { id: 2, title: '北京大学学长考研经验公开', desc: '考研分享'},
-        { id: 3, title: '投身计算机的童鞋们技术分享速来', desc: '技术共享'},
-        { id: 4, title: '二叉树的原理剖析', desc: '深度分析'},
-        { id: 5, title: '滑动滚屏的原理分析', desc: '深度分析'},
-        { id: 6, title: '浏览器的网络请求分析', desc: '学长带你进名气'},
-        { id: 7, title: 'html5和es6的基本使用', desc: '学长带你进名气'},
-        { id: 8, title: '腾讯学长带人有意向投简历发邮箱', desc: '学长带你进名气'},
-        { id: 9, title: '腾讯学长带人有意向投简历发邮箱', desc: '学长带你进名气'},
-        { id: 10, title: '腾讯学长带人有意向投简历发邮箱', desc: '学长带你进名气'},
-        { id: 11, title: '腾讯学长带人有意向投简历发邮箱', desc: '学长带你进名气'},
-      ]
+      teachers: [],
+      pageIndex: 0,
+      pageCount: 0
     }
   }
 
+  componentWillMount() {
+    this.fetchData()
+  }
+
+  fetchData(query) {
+    console.log(query)
+    fetch(`${Config.API_URL}/teacher`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        start: this.state.pageIndex,
+        query: query || ''
+      })
+    }).then(res => res.json())
+      .then(res => {
+        ToastAndroid.show(`加载了${res.data.count}数据`, ToastAndroid.SHORT)
+        this.setState({
+          teachers: query ? res.data.teachers : this.state.teachers.concat(res.data.teachers),
+          pageCount: res.data.pageCount
+        })
+      })
+  }
+
   render() {
-    const { navigate } = this.props.navigation
+    const {navigate} = this.props.navigation
     return (
       <Grid>
-        <Row size={1}>
-          <View style={{flex: 1}}>
+        <Row>
+          <ScrollView>
             <SearchBar
               lightTheme
               clearIcon
-              onChangeText={() => {
+              onChangeText={text => {
+                console.log(text, 'text')
+                this.fetchData(text)
               }}
               containerStyle={styles.search}
               inputStyle={styles.searchInput}
               textInputRef="search"
-              icon={{ style: styles.icon }}
+              icon={{style: styles.icon}}
               placeholder='选个主题搜索一下'/>
-          </View>
-        </Row>
-        <Row size={9}>
-          <ScrollView>
             <ListInfo>
               {
-                this.state.newsList.map(cv => (
-                  <ItemInfo key={cv.id} title={cv.title} subtitle={cv.desc} onPress={() => navigate('TopicDetail', { tid: cv.id})}/>
+                this.state.teachers.map(cv => (
+                  <ItemInfo key={cv._id} title={cv.name} subtitle={cv.phone}
+                            onPress={() => navigate('TopicDetail', {tid: cv.id})}/>
                 ))
               }
             </ListInfo>
+            <TouchableHighlight underlayColor="transparent" onPress={() => {
+              console.log('[page]', this.state.pageCount)
+              this.setState({
+                pageIndex: this.state.pageIndex + 1
+              }, () => {
+                if (this.state.pageIndex < this.state.pageCount) {
+                  this.fetchData()
+                } else {
+                  ToastAndroid.show('没有更多内容了', ToastAndroid.SHORT);
+                }
+              })
+            }}>
+              <Text style={{alignSelf: 'center', color: '#444', fontSize: 14, margin: 20}}>----加载更多----</Text>
+            </TouchableHighlight>
           </ScrollView>
+
         </Row>
       </Grid>
     )
@@ -110,7 +140,8 @@ export default class TopicList extends React.Component {
 
 const styles = StyleSheet.create({
   search: {
-    height: 46
+    height: 46,
+    marginBottom: 4
   },
   searchInput: {
     height: 36,

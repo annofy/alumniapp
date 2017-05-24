@@ -32,7 +32,41 @@ export default class TopicDetail extends React.Component {
     this.state = {
       heartIcon: 'ios-heart-outline',
       clickHeartCount: 0,
-      shareCount: 0
+      shareCount: 0,
+      comments: [
+        {
+          from: {name: 'zheng'},
+          to: {name: 'li'},
+          content: "我想去,你想去吗?",
+          meta: {
+            createAt: '2017-05-18 20:30'
+          }
+        },
+        {
+          from: {name: 'li'},
+          to: {name: 'zheng'},
+          content: "学校真是越来越牛逼了啊.",
+          meta: {
+            createAt: '2017-05-18 20:30',
+          }
+        },
+        {
+          from: {name: 'zhengsan '},
+          to: {name: 'lisi'},
+          content: '看了这篇文章心里很激动',
+          meta: {
+            createAt: '2017-05-18 20:30',
+          }
+        },
+        {
+          from: {name: '王五'},
+          to: {name: 'lisi'},
+          content: '看了这篇文章心里很激动',
+          meta: {
+            createAt: '2017-05-18 20:30',
+          }
+        }
+      ]
     }
     this.onPress = this.onPress.bind(this)
     this._shareText = this._shareText.bind(this)
@@ -122,7 +156,7 @@ export default class TopicDetail extends React.Component {
               /><Text>({this.state.shareCount})</Text>
             </View>
           </View>
-          <Comments/>
+          <Comments comments={this.state.comments}/>
         </ScrollView>
       </View>
     )

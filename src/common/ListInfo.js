@@ -1,10 +1,6 @@
 import React from 'react'
-import {
-  StyleSheet
-} from 'react-native'
-import {
-  List
-} from 'react-native-elements'
+import {StyleSheet} from 'react-native'
+import {List} from 'react-native-elements'
 
 const styles = StyleSheet.create({
   container: {

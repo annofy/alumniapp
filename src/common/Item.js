@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  StyleSheet
+  StyleSheet, View, Text
 } from 'react-native'
 import {
   ListItem
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
-    borderBottomWidth: 1,
+    borderBottomWidth:1,
     borderBottomColor: '#ccc',
     backgroundColor: '#fff',
     marginTop: 5,

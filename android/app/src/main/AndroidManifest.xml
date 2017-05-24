@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 系统弹框 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <!--*************************高德地图-定位所需要权限*************************-->
     <!-- Normal Permissions 不需要运行时注册 -->
     <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -37,7 +36,6 @@
 
     <!-- 更改设置 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <!--*************************高德地图-定位所需要权限*************************-->
 
     <uses-sdk
             android:minSdkVersion="16"

@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   ScrollView,
-  ToastAndroid
+  ToastAndroid, AsyncStorage
 } from 'react-native'
 
 import {
@@ -26,6 +26,7 @@ import MyDonate from './home/MyDonate'
 import About from './home/About'
 import SetEmail from './home/SetEmail'
 import SysMessage from './home/SysMessage'
+import PayWay from './home/PayWay'
 
 import ImageIcon from '../../images/icons8-puzzle.png'
 
@@ -86,12 +87,18 @@ class Home extends React.Component {
       ],
       info: {}
     }
+    AsyncStorage.getItem('userId')
+      .then(id => {
+        this.userId = id
+      })
+    console.log('userId', this.userId)
   }
 
   componentWillMount() {
-    fetch(`${Config.API_URL}/home`)
+    fetch(`${Config.API_URL}/home?id=${this.userId}`)
       .then(res => res.json())
       .then(res => {
+        console.log(res)
         if (res.success) {
           this.setState({
             info: res.data
@@ -158,7 +165,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   menus: {
-    marginTop: 20,
+    marginTop: 10,
   },
   headerItem: {
     flexDirection: 'row',
@@ -182,4 +189,5 @@ export default StackNavigator({
   About: {screen: About},
   SetEmail: {screen: SetEmail},
   SysMessage: {screen: SysMessage},
+  PayWay: {screen: PayWay},
 })

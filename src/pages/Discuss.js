@@ -21,6 +21,7 @@ import TopicList from './discuss/TopicList'
 import TopicDetail from './discuss/TopicDetail'
 import MiaiDetail from './discuss/MiaiDetail'
 import SchoolDating from './discuss/SchoolDating'
+import Teachers from './discuss/Teachers'
 
 class Discuss extends React.Component {
 
@@ -126,7 +127,7 @@ class Discuss extends React.Component {
             <Row containerStyle={ styles.row}>
               <TouchableHighlight underlayColor="#F3F3F3" style={ styles.menuItem } onPress={() => {
                 this.props.screenProps.hiddenBar()
-                return navigate('TopicList', {typeId: 1})
+                return navigate('Teachers', {typeId: 1})
               }}>
                 <View>
                   <Icon
@@ -225,5 +226,8 @@ export default StackNavigator({
   },
   MiaiDetail: {
     screen: MiaiDetail
+  },
+  Teachers: {
+    screen: Teachers
   }
 })

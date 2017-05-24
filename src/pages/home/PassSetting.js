@@ -80,6 +80,5 @@ export default class PassSetting extends React.Component {
 const styles = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
   }
 })

@@ -8,15 +8,16 @@ export default class LeftBtn extends React.Component {
   }
 
   render() {
-    <Icon
+    return <Icon
       name='chevron-left'
       type='ionicons'
       color='#333'
       underlayColor="#ccc"
       containerStyle={{flex: 1, paddingRight: 10}}
       onPress={() => {
-        if(this.props)
-        this.props.screenProps.showBar()
+        if(this.props.screenProps) {
+          this.props.screenProps.showBar()
+        }
         this.props.navigation.goBack()
       }}/>
   }

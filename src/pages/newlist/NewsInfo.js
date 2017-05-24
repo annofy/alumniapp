@@ -1,9 +1,11 @@
 import React from 'react'
-import {View, Text, StyleSheet, ScrollView, Image, Dimensions} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, Image, Dimensions, TouchableHighlight} from 'react-native'
 import {
   Divider, Icon
 } from 'react-native-elements'
 import Config from 'react-native-config'
+import Comments from '../../common/Comments'
+import ToolBar from "../../common/ToolBar";
 
 
 export default class NewsInfo extends React.Component {
@@ -50,8 +52,42 @@ export default class NewsInfo extends React.Component {
     this.state = {
       article: {
         author: [],
-        uris: []
-      }
+        uris: [],
+      },
+      comments: [
+        {
+          from: {name: 'zheng'},
+          to: {name: 'li'},
+          content: "我想去,你想去吗?",
+          meta: {
+            createAt: '2017-05-18 20:30'
+          }
+        },
+        {
+          from: {name: 'li'},
+          to: {name: 'zheng'},
+          content: "学校真是越来越牛逼了啊.",
+          meta: {
+            createAt: '2017-05-18 20:30',
+          }
+        },
+        {
+          from: {name: 'zhengsan '},
+          to: {name: 'lisi'},
+          content: '看了这篇文章心里很激动',
+          meta: {
+            createAt: '2017-05-18 20:30',
+          }
+        },
+        {
+          from: {name: '王五'},
+          to: {name: 'lisi'},
+          content: '看了这篇文章心里很激动',
+          meta: {
+            createAt: '2017-05-18 20:30',
+          }
+        }
+      ]
     }
   }
 
@@ -61,11 +97,9 @@ export default class NewsInfo extends React.Component {
       .then(res => res.json())
       .then(res => {
         if(res.success) {
-          console.log(res)
+          console.log(res, 'res')
           this.setState({
             article: res.data
-          }, () => {
-            console.log('[response]',this.state.article)
           })
         }
       })
@@ -80,7 +114,7 @@ export default class NewsInfo extends React.Component {
         <Text style={styles.subtitle}>发布时间: {this.state.article.time}</Text>
         <Text style={styles.subtitle}>作者:{this.state.article.author.join(' ')}</Text>
         <Divider style={styles.divide}/>
-        <ScrollView>
+        <ScrollView style={{ marginBottom: 50}}>
           <View style={{marginBottom: 20}}>
             {
               this.state.article.uris.map((uri, index) => <Image source={{ uri: uri}} key={index} style={{ width: Dimensions.width, height: 150, marginTop: 10}}/>)
@@ -89,7 +123,14 @@ export default class NewsInfo extends React.Component {
               {this.state.article.content}
             </Text>
           </View>
+          <ToolBar url={params.url} title={params.title}/>
+          <Comments id={this.state.article.tid} comments={this.state.comments}/>
         </ScrollView>
+        <TouchableHighlight underlayColor="transparent" onPress={() => {
+
+        }}>
+          <Text style={{alignSelf: 'center', color: '#ccc', fontSize: 14 }}>{this.state.loadingText}</Text>
+        </TouchableHighlight>
       </View>
     )
   }

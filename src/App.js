@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Navigator,
   StatusBar,
-  BackAndroid
+  BackAndroid,
 } from 'react-native'
 
 import Welcome from './pages/Welcome'
@@ -18,6 +18,9 @@ export default class App extends React.Component {
     this.goBack = this.NaviGoBack.bind(this)
 
     BackAndroid.addEventListener('harwareBackPress', this.goBack)
+
+
+
 
   }
 
